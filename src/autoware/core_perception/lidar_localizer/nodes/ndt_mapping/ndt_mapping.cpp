@@ -43,6 +43,9 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl/common/impl/common.hpp>
+// #include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/passthrough.h>
 
 #include <ndt_cpu/NormalDistributionsTransform.h>
 #include <pcl/registration/ndt.h>
@@ -184,13 +187,62 @@ static void param_callback(const autoware_config_msgs::ConfigNDTMapping::ConstPt
   std::cout << "min_add_scan_shift: " << min_add_scan_shift << std::endl;
 }
 
+static void split_pointcloud(pcl::PointCloud<pcl::PointXYZI>::Ptr map, std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>& submaps)
+{
+  submaps.clear();
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_map (new pcl::PointCloud<pcl::PointXYZ> ());  
+  pcl::copyPointCloud(*map, *cloud_map);
+  pcl::PointXYZ min, max;
+  pcl::getMinMax3D(*cloud_map, min, max);
+  std::cout << "map min: " << min.x << ", "<< min.y << ", "<< min.z << std::endl;
+  std::cout << "map max: " << max.x << ", "<< max.y << ", "<< max.z << std::endl;
+  int blocksize = 100;
+  pcl::PassThrough<pcl::PointXYZ> pass;
+  for(float x_begin = (float)blocksize*(float)((int)(min.x/blocksize)); x_begin <= max.x; x_begin += blocksize)
+  {
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_x_filtered (new pcl::PointCloud<pcl::PointXYZ> ());  
+    pass.setInputCloud(cloud_map);
+    pass.setFilterFieldName("x");
+    pass.setFilterLimits(x_begin - blocksize, x_begin);
+    pass.filter(*cloud_x_filtered);
+    for(float y_begin = (float)blocksize*(float)((int)(min.y/blocksize)); y_begin <= max.y; y_begin += blocksize)
+    {
+      pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_y_filtered (new pcl::PointCloud<pcl::PointXYZ> ());
+      pass.setInputCloud(cloud_x_filtered);
+      pass.setFilterFieldName("y");
+      pass.setFilterLimits(y_begin - blocksize, y_begin);
+      pass.filter(*cloud_y_filtered);
+      if(cloud_y_filtered->points.size() != 0)
+      {
+        pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_y_filtered_xyzi(new pcl::PointCloud<pcl::PointXYZI> ()); 
+        pcl::copyPointCloud(*cloud_y_filtered, *cloud_y_filtered_xyzi);
+        submaps.push_back(cloud_y_filtered_xyzi);
+      }
+
+    }
+  }
+}
+
 static void output_callback(const autoware_config_msgs::ConfigNDTMappingOutput::ConstPtr& input)
 {
   double filter_res = input->filter_res;
   std::string filename = input->filename;
+  std::string filename_prefix = filename.substr(0, filename.find_last_of('.'));
   std::cout << "output_callback" << std::endl;
   std::cout << "filter_res: " << filter_res << std::endl;
   std::cout << "filename: " << filename << std::endl;
+  
+  static bool _save_submaps = false;
+  if(ros::param::get("save_submaps", _save_submaps))
+  {
+    std::cout << "save_submaps: " << _save_submaps << std::endl;
+    std::cout << "filename prefix: " << filename_prefix << std::endl;
+  }
+  else
+  {
+    _save_submaps = false;
+    std::cout << "save_submaps is not set, assume false by default." << std::endl;
+  }
 
   pcl::PointCloud<pcl::PointXYZI>::Ptr map_ptr(new pcl::PointCloud<pcl::PointXYZI>(map));
   pcl::PointCloud<pcl::PointXYZI>::Ptr map_filtered(new pcl::PointCloud<pcl::PointXYZI>());
@@ -218,15 +270,33 @@ static void output_callback(const autoware_config_msgs::ConfigNDTMappingOutput::
   ndt_map_pub.publish(*map_msg_ptr);
 
   // Writing Point Cloud data to PCD file
+  std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> submaps;
   if (filter_res == 0.0)
   {
     pcl::io::savePCDFileASCII(filename, *map_ptr);
     std::cout << "Saved " << map_ptr->points.size() << " data points to " << filename << "." << std::endl;
+    if(_save_submaps) 
+    {
+      split_pointcloud(map_ptr, submaps);
+    }
   }
   else
   {
     pcl::io::savePCDFileASCII(filename, *map_filtered);
     std::cout << "Saved " << map_filtered->points.size() << " data points to " << filename << "." << std::endl;
+    if(_save_submaps) 
+    {
+      split_pointcloud(map_filtered, submaps);
+    }
+  }
+  if(_save_submaps) 
+  {
+    for(int i=0;i<(int)submaps.size();i++)
+    {
+      std::string filename_submap = filename_prefix + "-" + std::to_string(i) + ".pcd";
+      pcl::io::savePCDFileASCII(filename_submap, *submaps[i]);
+    }
+    std::cout << "Saved " << submaps.size() << " submaps to " << filename_prefix << "-*.pcd." << std::endl;
   }
 }
 
