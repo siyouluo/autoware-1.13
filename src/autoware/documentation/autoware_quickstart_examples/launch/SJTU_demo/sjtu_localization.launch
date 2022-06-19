@@ -1,0 +1,25 @@
+<launch>
+  <!-- setting path parameter -->
+  <arg name="get_height" value="true" />
+  <!-- Setup -->
+  <node pkg="tf2_ros"  type="static_transform_publisher" name="base_link_to_localizer" args="0.7 0 1.85 0.12 0 0 /base_link /velodyne" />
+  <include file="$(find vehicle_description)/launch/vehicle_model.launch" />
+  <!-- points downsampler -->
+  <include file="$(find points_downsampler)/launch/points_downsample.launch" />
+  <!-- nmea2tfpose -->
+  <include file="$(find gnss_localizer)/launch/nmea2tfpose.launch"/>
+
+
+  <param name="tf_x" value="0.7" />
+  <param name="tf_y" value="0.0" />
+  <param name="tf_z" value="1.85" />
+  <param name="tf_yaw" value="0.12" />
+  <param name="tf_pitch" value="0.0" />
+  <param name="tf_roll" value="0.0" />
+  <param name="localizer" value="velodyne" />
+  <!-- ndt_matching -->
+  <include file="$(find lidar_localizer)/launch/ndt_matching.launch">
+    <arg name="get_height" value="$(arg get_height)"/> 
+    <arg name="use_gnss" default="0"/>
+  </include>
+</launch>

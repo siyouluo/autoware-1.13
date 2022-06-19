@@ -1,0 +1,33 @@
+<launch>
+
+  <!-- TF -->
+  <include file="$(env HOME)/.autoware/SJTU_data/tf/tf.launch"/>
+
+  <!-- Point Cloud -->
+  <node pkg="map_file" type="points_map_loader" name="points_map_loader" 
+      args="noupdate 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-0.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-1.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-2.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-3.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-4.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-5.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-6.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-7.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-8.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-9.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-10.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-11.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-12.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-13.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-14.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-15.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-16.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-17.pcd 
+        $(env HOME)/.autoware/SJTU_data/map/pointcloud_map/autoware-220617-18.pcd "/>
+
+  <!-- Vector Map -->
+  <!-- <node pkg="map_file" type="vector_map_loader" name="vector_map_loader" args="$(env HOME)/.autoware/data/map/vector_map/lane.csv $(env HOME)/.autoware/data/map/vector_map/line.csv $(env HOME)/.autoware/data/map/vector_map/utilitypole.csv $(env HOME)/.autoware/data/map/vector_map/curb.csv $(env HOME)/.autoware/data/map/vector_map/node.csv $(env HOME)/.autoware/data/map/vector_map/gutter.csv $(env HOME)/.autoware/data/map/vector_map/point.csv $(env HOME)/.autoware/data/map/vector_map/pole.csv $(env HOME)/.autoware/data/map/vector_map/vector.csv $(env HOME)/.autoware/data/map/vector_map/zebrazone.csv $(env HOME)/.autoware/data/map/vector_map/streetlight.csv $(env HOME)/.autoware/data/map/vector_map/whiteline.csv $(env HOME)/.autoware/data/map/vector_map/road_surface_mark.csv $(env HOME)/.autoware/data/map/vector_map/area.csv $(env HOME)/.autoware/data/map/vector_map/idx.csv $(env HOME)/.autoware/data/map/vector_map/dtlane.csv $(env HOME)/.autoware/data/map/vector_map/signaldata.csv $(env HOME)/.autoware/data/map/vector_map/poledata.csv $(env HOME)/.autoware/data/map/vector_map/roadsign.csv $(env HOME)/.autoware/data/map/vector_map/roadedge.csv $(env HOME)/.autoware/data/map/vector_map/crosswalk.csv $(env HOME)/.autoware/data/map/vector_map/stopline.csv"/> -->
+  <node pkg="rviz" type="rviz" name="rviz" />
+  <node pkg="rqt_tf_tree" type="rqt_tf_tree" name="rqt_tf_tree" />
+</launch>
