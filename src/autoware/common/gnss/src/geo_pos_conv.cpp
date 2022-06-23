@@ -15,6 +15,9 @@
  */
 
 #include <gnss/geo_pos_conv.hpp>
+#include <iostream>
+#include <cmath>
+#include <Eigen/Dense>
 
 geo_pos_conv::geo_pos_conv()
     : m_x(0)
@@ -185,6 +188,17 @@ void geo_pos_conv::set_plane(int num)
     lat_deg = 154;
     lat_min = 0;
   }
+  else if(num == 126)
+  {
+    // 原本想用如下位置做参考点(31°01.72134623' N, 121°26.34220871' E)
+    // 但是这几个变量被声明为int型，虽然改一下变量类型并不麻烦，但为了风格统一，还是四舍五入一下选作参考点吧.
+    // 上海交通大学文治大道两桥中线与半圆弧交点
+    // "$GPRMC,090646.68,A,3101.72134623,N,12126.34220871,E,1.485,72.43,210622,,,D*5F"
+    lon_deg = 31;
+    lon_min = 2;
+    lat_deg = 121;
+    lat_min = 27;
+  }
 
   // swap longitude and latitude
   m_PLo = M_PI * ((double)lat_deg + (double)lat_min / 60.0) / 180.0;
@@ -339,6 +353,24 @@ void geo_pos_conv::conv_llh2xyz(void)
         Pmo;
 
   m_z = m_h;
+#if 1
+  Eigen::Matrix3f R;
+  Eigen::RowVector3f T;
+  Eigen::RowVector3f m_3;
+  Eigen::RowVector3f m_4;
+  
+  m_3 << m_y, m_x, m_z;
+  R <<  1, 0, 0,
+        0, 1, 0,
+        0, 0, 1;
+  
+  T << 0, 0, 0;
+  m_4 = m_3 * R.transpose() + T;
+
+  m_x = m_4[1];
+  m_y = m_4[0];
+  m_z = m_4[2];
+#endif
 }
 
 void geo_pos_conv::conv_xyz2llh(void)
