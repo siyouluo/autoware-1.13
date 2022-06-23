@@ -15,9 +15,6 @@
  */
 
 #include <gnss/geo_pos_conv.hpp>
-#include <iostream>
-#include <cmath>
-#include <Eigen/Dense>
 
 geo_pos_conv::geo_pos_conv()
     : m_x(0)
@@ -353,24 +350,6 @@ void geo_pos_conv::conv_llh2xyz(void)
         Pmo;
 
   m_z = m_h;
-#if 1
-  Eigen::Matrix3f R;
-  Eigen::RowVector3f T;
-  Eigen::RowVector3f m_3;
-  Eigen::RowVector3f m_4;
-  
-  m_3 << m_y, m_x, m_z;
-  R <<  1, 0, 0,
-        0, 1, 0,
-        0, 0, 1;
-  
-  T << 0, 0, 0;
-  m_4 = m_3 * R.transpose() + T;
-
-  m_x = m_4[1];
-  m_y = m_4[0];
-  m_z = m_4[2];
-#endif
 }
 
 void geo_pos_conv::conv_xyz2llh(void)

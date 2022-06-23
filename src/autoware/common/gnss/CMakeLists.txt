@@ -1,15 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(gnss)
 
-find_package(catkin REQUIRED COMPONENTS roscpp cmake_modules) # 添加1
+find_package(catkin REQUIRED COMPONENTS roscpp)
 
 catkin_package(
         INCLUDE_DIRS include
         LIBRARIES gnss
 )
 
-find_package(Eigen REQUIRED) # 添加 2
-include_directories(${Eigen_INCLUDE_DIRS}) # 添加3
 include_directories(
         include
         ${catkin_INCLUDE_DIRS}
