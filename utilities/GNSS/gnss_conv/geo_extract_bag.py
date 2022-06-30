@@ -40,7 +40,7 @@ def compute_matrix(bag_name):
         t1 = gnss_pose[n1]['nsec']
         index = 0
         for j in range(index, len(ndt_pose)):
-            if -5000000 < t1 - ndt_pose[j]['nsec'] < 5000000:
+            if -30000000 < t1 - ndt_pose[j]['nsec'] < 30000000:
                 gnss_c = gnss_pose[n1]
                 ndt_c = ndt_pose[j]
                 gnss_matrix.append([gnss_c['x'], gnss_c['y'], gnss_c['z']])

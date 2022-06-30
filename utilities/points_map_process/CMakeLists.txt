@@ -8,5 +8,12 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-add_executable (points_map_process src/points_map_process.cpp)
-target_link_libraries (points_map_process ${PCL_LIBRARIES})
+include_directories(./include)
+
+add_executable (transform_pointcloud src/transform_pointcloud.cpp)
+target_link_libraries (transform_pointcloud ${PCL_LIBRARIES})
+
+
+add_executable (split_pointcloud src/split_pointcloud.cpp)
+target_link_libraries (split_pointcloud ${PCL_LIBRARIES})
+
