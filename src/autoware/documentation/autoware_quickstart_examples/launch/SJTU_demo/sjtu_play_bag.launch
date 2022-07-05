@@ -1,27 +1,53 @@
 <launch>
   <!-- Point Cloud -->
   <node pkg="rosbag" type="play" name="play" 
-      args="$(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-00-06_0.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-00-24_1.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-00-46_2.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-01-08_3.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-01-22_4.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-01-35_5.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-01-53_6.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-02-18_7.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-02-45_8.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-03-04_9.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-03-39_10.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-04-15_11.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-04-33_12.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-04-58_13.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-05-19_14.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-05-36_15.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-06-01_16.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-06-19_17.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-06-36_18.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-07-00_19.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-07-23_20.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-07-44_21.bag
-            $(env HOME)/.autoware/SJTU_data/bagfiles/2022-06-16-17-08-07_22.bag"/>
+      args="-r 1
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-05-35_6.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-05-59_7.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-06-22_8.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-06-37_9.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-06-51_10.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-07-07_11.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-07-23_12.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-07-42_13.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-08-04_14.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-08-17_15.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-08-33_16.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-08-50_17.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-09-09_18.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-09-27_19.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-09-44_20.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-10-01_21.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-10-19_22.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-10-38_23.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-10-50_24.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-11-02_25.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-11-12_26.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-11-23_27.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-11-38_28.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-11-55_29.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-12-13_30.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-12-33_31.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-12-53_32.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-13-13_33.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-13-33_34.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-13-50_35.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-14-02_36.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-14-19_37.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-14-36_38.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-14-58_39.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-15-19_40.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-15-47_41.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-16-08_42.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-16-37_43.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-17-01_44.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-17-26_45.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-17-52_46.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-18-12_47.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-18-35_48.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-18-55_49.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-19-12_50.bag
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-19-43_51.bag">
+    <remap from="/points_raw/relay" to="/points_raw"/>
+  </node>
 </launch>

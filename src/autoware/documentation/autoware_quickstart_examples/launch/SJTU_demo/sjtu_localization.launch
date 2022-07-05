@@ -7,7 +7,9 @@
   <!-- points downsampler -->
   <include file="$(find points_downsampler)/launch/points_downsample.launch" />
   <!-- nmea2tfpose -->
-  <include file="$(find gnss_localizer)/launch/nmea2tfpose.launch"/>
+  <include file="$(find gnss_localizer)/launch/nmea2tfpose.launch">
+    <arg name="plane" default="126"/>
+  </include>
 
 
   <param name="tf_x" value="0.7" />
@@ -20,6 +22,6 @@
   <!-- ndt_matching -->
   <include file="$(find lidar_localizer)/launch/ndt_matching.launch">
     <arg name="get_height" value="$(arg get_height)"/> 
-    <arg name="use_gnss" default="0"/>
+    <arg name="use_gnss" default="1"/>
   </include>
 </launch>
