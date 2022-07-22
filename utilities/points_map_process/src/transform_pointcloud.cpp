@@ -114,10 +114,12 @@ int main(int argc, char **argv)
     {
         pcl::transformPointCloud (*cloud_map, *transformed_cloud, transform); 
     }
+    pcl::PointCloud<pcl::PointXYZI>::Ptr output_cloud (new pcl::PointCloud<pcl::PointXYZI> ());
+    pcl::copyPointCloud(*transformed_cloud, *output_cloud);
     // save transformed pointcloud into *-transformed.pcd
     light::mkpath(filename_prefix);
     std::cout << "saving transformed points_map to file: " << filename_transformed << std::endl;
-    pcl::io::savePCDFileASCII(filename_transformed, *transformed_cloud);  
+    pcl::io::savePCDFileASCII(filename_transformed, *output_cloud);  
 
     return 0;
 }

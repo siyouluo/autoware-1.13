@@ -1,7 +1,8 @@
 <launch>
   <!-- Point Cloud -->
   <node pkg="rosbag" type="play" name="play" 
-      args="-r 1
+      args="-r 0.3
+        $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-05-11_5.bag
         $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-05-35_6.bag
         $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-05-59_7.bag
         $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-06-22_8.bag
@@ -50,4 +51,7 @@
         $(env HOME)/.autoware/SJTU_data/rosbag/220621/bag_2022-06-21-17-19-43_51.bag">
     <remap from="/points_raw/relay" to="/points_raw"/>
   </node>
+  
+  <node pkg="image_transport" type="republish" name="republish" args="compressed in:=/flir_adk/image_raw raw out:=/flir_adk/image_raw"/>
+
 </launch>

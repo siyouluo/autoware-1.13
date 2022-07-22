@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
         pcl_ros
         pcl_conversions
         autoware_msgs
+        eigen_conversions
         )
 
 find_package(OpenCV REQUIRED)
@@ -51,6 +52,7 @@ set(CMAKE_CXX_FLAGS "-O2 -g -Wall ${CMAKE_CXX_FLAGS}")
 
 include_directories(
         include
+        ${OpenCV_INCLUDE_DIRS}
         ${catkin_INCLUDE_DIRS}
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}

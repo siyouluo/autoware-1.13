@@ -1,0 +1,55 @@
+<launch>
+
+
+
+  <arg name="is_register_lidar2camera_tf" default="true" />
+  <arg name="is_publish_projection_matrix" default="true" />
+  <arg name="is_publish_camera_info" default="true" />
+  <arg name="camera_calib" default="$(env HOME)/.autoware/SJTU_data/calibration/camera_lidar_3d/flir/20220628_camera_lidar_RT.yml"/>
+
+  <!-- calibration_publisher -->
+  <include file="$(find runtime_manager)/launch_files/calibration_publisher.launch">
+    <arg name="file" value="$(arg camera_calib)" />
+    <arg name="register_lidar2camera_tf" value="$(arg is_register_lidar2camera_tf)" />
+    <arg name="publish_extrinsic_mat" value="$(arg is_publish_projection_matrix)" />
+    <arg name="publish_camera_info" value="$(arg is_publish_camera_info)" />
+    <arg name="image_topic_src" default="/flir_adk/image_raw"/>
+  </include>
+
+  <!-- points2image -->
+    <arg name="camera_id" default="/"/>
+    <arg name="camera_info_src" default="/camera_info"/>
+    <arg name="projection_matrix_src" default="/projection_matrix"/>
+    <arg name="sync" default="false" />
+
+    <node pkg="points2image" type="points2image" name="points2image" output="screen">
+        <param name="points_node" value="/points_raw"/>
+        <param name="image_topic_src" value="/flir_adk/image_raw"/>
+        <param name="camera_info_topic" value="$(arg camera_id)$(arg camera_info_src)"/>
+        <param name="projection_matrix_topic" value="$(arg camera_id)$(arg projection_matrix_src)"/>
+        <remap from="/points_raw" to="/sync_drivers/points_raw" if="$(arg sync)" />
+    </node>
+
+
+  <include file="$(find points_preprocessor)/launch/ray_ground_filter.launch"/>
+
+  <include file="$(find object_map)/launch/wayarea2grid.launch"/>
+
+  <!-- lidar_euclidean_cluster_detect -->
+  <include file="$(find lidar_euclidean_cluster_detect)/launch/lidar_euclidean_cluster_detect.launch">
+    <arg name="points_node" default="/points_no_ground" />
+  </include>
+  <include file="$(find lidar_kf_contour_track)/launch/lidar_kf_contour_track.launch"/>
+
+  <!-- traffic light recognition -->
+  <!-- feat_proj -->
+  <!--
+  <node pkg="trafficlight_recognizer" type="feat_proj" name="feat_proj" />
+  -->
+
+  <!-- region_tlr -->
+  <!--
+  <include file="$(find trafficlight_recognizer)/launch/traffic_light_recognition.launch" />
+  -->
+
+</launch>

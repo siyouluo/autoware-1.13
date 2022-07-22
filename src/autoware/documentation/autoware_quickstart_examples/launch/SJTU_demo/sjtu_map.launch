@@ -13,13 +13,16 @@
   <!-- Vector Map -->
   <node pkg="map_file" type="vector_map_loader" name="vector_map_loader" 
     args="
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/lane.csv 
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/line.csv 
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/node.csv 
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/whiteline.csv 
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/dtlane.csv 
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/roadedge.csv 
-    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220630/point.csv "/>
+    $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/area.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/dtlane.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/idx.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/lane.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/line.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/node.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/point.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/roadedge.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/wayarea.csv
+          $(env HOME)/.autoware/SJTU_data/map/vector_map/VectorMap-220720/whiteline.csv"/>
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find autoware_quickstart_examples)/launch/SJTU_demo/default.rviz"/>
   <node pkg="rqt_tf_tree" type="rqt_tf_tree" name="rqt_tf_tree" />
 </launch>

@@ -6,6 +6,8 @@
   <include file="$(find vehicle_description)/launch/vehicle_model.launch" />
   <!-- points downsampler -->
   <include file="$(find points_downsampler)/launch/points_downsample.launch" />
+  <!-- points transformer -->
+  <include file="$(find points_preprocessor)/launch/cloud_transformer.launch" />
   <!-- nmea2tfpose -->
   <include file="$(find gnss_localizer)/launch/nmea2tfpose.launch">
     <arg name="plane" default="126"/>

@@ -1,0 +1,28 @@
+<launch>
+  <!-- Point Cloud -->
+  <node pkg="rosbag" type="play" name="play" 
+      args="-r 1
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-00-06_0.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-00-24_1.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-00-46_2.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-01-08_3.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-01-22_4.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-01-35_5.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-01-53_6.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-02-18_7.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-02-45_8.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-03-04_9.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-03-39_10.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-04-15_11.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-04-33_12.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-04-58_13.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-05-19_14.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-05-36_15.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-06-01_16.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-06-19_17.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-06-36_18.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-07-00_19.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-07-23_20.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-07-44_21.bag
+            $(env HOME)/.autoware/SJTU_data/rosbag/220617/2022-06-16-17-08-07_22.bag" output="screen"/>
+</launch>
